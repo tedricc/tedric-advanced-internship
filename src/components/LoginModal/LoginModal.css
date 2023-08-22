@@ -34,6 +34,12 @@
   margin-bottom: 24px;
 }
 
+.auth__error {
+  color: #f56c6c;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
 .guest__btn--wrapper {
   position: relative;
   display: flex;

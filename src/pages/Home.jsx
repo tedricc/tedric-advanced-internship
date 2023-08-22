@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Nav from "../components/Nav";
 import Landing from "../components/Landing";
 import Features from "../components/Features";
@@ -7,17 +7,7 @@ import Numbers from "../components/Numbers";
 import Footer from "../components/Footer";
 import LoginModal from "../components/LoginModal/LoginModal.jsx";
 
-function Home() {
-  const [modal, setModal] = useState(false);
-
-  function toggleModal() {
-    if (!modal) {
-      setModal(true);
-    } else {
-      setModal(false);
-    }
-  }
-
+function Home({ modal, toggleModal }) {
   return (
     <>
       {modal && <LoginModal toggleModal={toggleModal} />}
