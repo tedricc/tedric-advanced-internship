@@ -1,7 +1,7 @@
 import React from "react";
 import FiveStars from "./ui/FiveStars";
 
-function Reviews() {
+function Reviews({ toggleModal }) {
   return (
     <section id="reviews">
       <div className="row">
@@ -64,7 +64,9 @@ function Reviews() {
             </div>
           </div>
           <div className="reviews__btn--wrapper">
-            <button className="btn home__cta--btn">Login</button>
+            <button className="btn home__cta--btn" onClick={toggleModal}>
+              Login
+            </button>
           </div>
         </div>
       </div>

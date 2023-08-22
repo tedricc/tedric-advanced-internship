@@ -9,7 +9,7 @@ function ActiveLines({ lines }) {
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [lines, 2000]);
+  }, [lines]);
 
   return (
     <>

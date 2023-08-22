@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AiFillFileText, AiFillBulb, AiFillAudio } from "react-icons/ai";
 import ActiveLines from "./ui/ActiveLines";
 
