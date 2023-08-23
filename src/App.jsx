@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
+import ForYou from "./pages/ForYou";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcboQFWC77VkPAZzcyDApJhwtnYrLKLAU",
@@ -13,7 +14,7 @@ const firebaseConfig = {
   appId: "1:588751824281:web:996bc2510d895eccab5f08",
 };
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 
 function App() {
   const [modal, setModal] = useState(false);
@@ -32,6 +33,10 @@ function App() {
         <Route
           path="/"
           element={<Home modal={modal} toggleModal={toggleModal} />}
+        />
+        <Route
+          path="/for-you"
+          element={<ForYou modal={modal} toggleModal={toggleModal} />}
         />
       </Routes>
     </Router>
