@@ -541,3 +541,12 @@ button:disabled {
     display: none;
   }
 }
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-left: 200px;
+  width: calc(100% - 200px);
+  transition: all 0.3s;
+}

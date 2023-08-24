@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import { useState } from "react";
 import { initializeApp } from "firebase/app";
 import ForYou from "./pages/ForYou";
+import BookInfo from "./pages/BookInfo";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcboQFWC77VkPAZzcyDApJhwtnYrLKLAU",
@@ -38,6 +39,7 @@ function App() {
           path="/for-you"
           element={<ForYou modal={modal} toggleModal={toggleModal} />}
         />
+        <Route path="/book/:id" element={<BookInfo />} />
       </Routes>
     </Router>
   );

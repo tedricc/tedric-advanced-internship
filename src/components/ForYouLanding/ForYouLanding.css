@@ -1,0 +1,70 @@
+.foryou__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #032b41;
+  margin-bottom: 16px;
+}
+
+.selected__book {
+  display: flex;
+  justify-content: space-between;
+  width: calc((100% / 3) * 2);
+  background-color: #fbefd6;
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 24px;
+  gap: 24px;
+}
+
+.selected__subtitle {
+  color: #032b41;
+  width: 40%;
+}
+
+.selected__line {
+  width: 1px;
+  background-color: #bac8ce;
+}
+
+.selected__content {
+  display: flex;
+  gap: 16px;
+  width: 60%;
+}
+
+.selected__image--wrapper {
+  height: 140px !important;
+  width: 140px !important;
+  min-width: 140px !important;
+}
+
+.selected__text {
+  width: 100%;
+}
+
+.selected__title {
+  font-weight: 600;
+  color: #032b41;
+  margin-bottom: 8px;
+}
+
+.selected__author {
+  font-size: 14px;
+  color: #394547;
+  margin-bottom: 16px;
+}
+
+.foryou__subtitle {
+  font-weight: 300;
+  color: #394547;
+  margin-bottom: 16px;
+}
+
+.books__container {
+  display: flex;
+  overflow-x: auto;
+  gap: 16px;
+  scroll-snap-type: mandatory;
+  scroll-snap-type: x;
+  margin-bottom: 32px;
+}
