@@ -5,12 +5,12 @@ import axios from "axios";
 import { BsStar, BsMic, BsLightbulb, BsBookmark, BsBook } from "react-icons/bs";
 import Skeleton from "../ui/Skeleton/Skeleton";
 
-function BookInfoDetails() {
+function BookInfoDetails({ modal, toggleModal, user }) {
   const { id } = useParams();
   const [book, setBook] = useState({});
   const [loading, setLoading] = useState(true);
 
-  async function getBookDetails({ modal, toggleModal, user }) {
+  async function getBookDetails() {
     const { data } = await axios.get(
       `https://us-central1-summaristt.cloudfunctions.net/getBook?id=${id}`
     );
