@@ -4,11 +4,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./ForYouLanding.css";
 import Book from "../ui/Book/Book";
+import BookLoading from "../ui/BookLoading/BookLoading";
+import Skeleton from "../ui/Skeleton/Skeleton";
 
 function ForYouLanding() {
   const [selectedBook, setSelectedBook] = useState({});
   const [recommendedBooks, setRecommended] = useState([]);
   const [suggestedBooks, setSuggested] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   async function getSelectedBook() {
     const { data } = await axios.get(
@@ -39,6 +42,7 @@ function ForYouLanding() {
     getSelectedBook();
     getRecommendedBooks();
     getSuggestedBooks();
+    setLoading(false);
   }, []);
 
   return (
@@ -46,31 +50,48 @@ function ForYouLanding() {
       <div className="container">
         <div className="foryou__wrapper">
           <div className="foryou__title">Selected just for you</div>
-          <Link to={`/book/${selectedBook.id}`} className="selected__book">
-            <div className="selected__subtitle">{selectedBook.subTitle}</div>
-            <div className="selected__line"></div>
-            <div className="selected__content">
-              <figure className="book__image--wrapper selected__image--wrapper">
-                <img
-                  src={selectedBook.imageLink}
-                  alt=""
-                  className="book__image"
-                />
-              </figure>
-              <div className="selected__text">
-                <div className="selected__title">{selectedBook.title}</div>
-                <div className="selected__author">{selectedBook.author}</div>
+
+          {!loading && Object.keys(selectedBook).length > 0 ? (
+            <Link to={`/book/${selectedBook.id}`} className="selected__book">
+              <div className="selected__subtitle">{selectedBook.subTitle}</div>
+              <div className="selected__line"></div>
+              <div className="selected__content">
+                <figure className="book__image--wrapper selected__image--wrapper">
+                  <img
+                    src={selectedBook.imageLink}
+                    alt=""
+                    className="book__image"
+                  />
+                </figure>
+                <div className="selected__text">
+                  <div className="selected__title">{selectedBook.title}</div>
+                  <div className="selected__author">{selectedBook.author}</div>
+                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
+          ) : (
+            <>
+              <Skeleton width="400px" height="200px" />
+            </>
+          )}
 
           <>
             <div className="foryou__title">Recommended for you</div>
             <div className="foryou__subtitle">We think you'll like these</div>
             <div className="books__container">
-              {recommendedBooks.map((book) => (
-                <Book book={book} key={book.id} />
-              ))}
+              {!loading && recommendedBooks.length > 0 ? (
+                <>
+                  {recommendedBooks.map((book) => (
+                    <Book book={book} key={book.id} />
+                  ))}
+                </>
+              ) : (
+                <>
+                  {new Array(5).fill(0).map((_, index) => (
+                    <BookLoading key={index} />
+                  ))}
+                </>
+              )}
             </div>
           </>
 
@@ -78,9 +99,19 @@ function ForYouLanding() {
             <div className="foryou__title">Suggested books</div>
             <div className="foryou__subtitle">Browse these books</div>
             <div className="books__container">
-              {suggestedBooks.map((book) => (
-                <Book book={book} key={book.id} />
-              ))}
+              {!loading && suggestedBooks.length > 0 ? (
+                <>
+                  {suggestedBooks.map((book) => (
+                    <Book book={book} key={book.id} />
+                  ))}
+                </>
+              ) : (
+                <>
+                  {new Array(5).fill(0).map((_, index) => (
+                    <BookLoading key={index} />
+                  ))}
+                </>
+              )}
             </div>
           </>
         </div>

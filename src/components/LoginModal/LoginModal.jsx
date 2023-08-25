@@ -7,6 +7,7 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInAnonymously,
 } from "firebase/auth";
 
 function LoginModal({ toggleModal }) {
@@ -71,6 +72,19 @@ function LoginModal({ toggleModal }) {
       });
   }
 
+  function guestLogin() {
+    signInAnonymously(auth)
+      .then(() => {
+        // Signed in..
+        toggleModal();
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        setError(errorMessage);
+        // ...
+      });
+  }
+
   return (
     <div className="auth__wrapper">
       <div className="auth">
@@ -83,7 +97,7 @@ function LoginModal({ toggleModal }) {
           <div className="auth__error">{error !== "" && error}</div>
           {loginOrRegister === "login" && (
             <>
-              <button className="btn guest__btn--wrapper">
+              <button className="btn guest__btn--wrapper" onClick={guestLogin}>
                 <figure className="guest__icon--mask">
                   <BsPersonFill />
                 </figure>

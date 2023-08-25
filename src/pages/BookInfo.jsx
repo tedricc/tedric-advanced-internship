@@ -12,7 +12,7 @@ function BookInfo({ modal, toggleModal, user }) {
       <div className="wrapper">
         <SideBar modal={modal} toggleModal={toggleModal} user={user} />
         <Search />
-        <BookInfoDetails />
+        <BookInfoDetails modal={modal} toggleModal={toggleModal} user={user}/>
       </div>
     </>
   );

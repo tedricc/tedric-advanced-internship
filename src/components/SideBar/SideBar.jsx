@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   BsHouseDoor,
   BsBookmark,
@@ -13,6 +13,8 @@ import "./SideBar.css";
 import { getAuth, signOut } from "firebase/auth";
 
 function SideBar({ modal, toggleModal, user }) {
+  const location = useLocation();
+
   const auth = getAuth();
   function logout() {
     signOut(auth)
@@ -32,13 +34,19 @@ function SideBar({ modal, toggleModal, user }) {
       <div className="sidebar__wrapper">
         <div className="sidebar__top">
           <Link to="/for-you" className="sidebar__link">
-            <div className="sidebar__link--line"></div>
+            <div
+              className={`sidebar__link--line ${
+                location.pathname === "/for-you" ? "active--tab" : ""
+              }`}
+            ></div>
             <div className="sidebar__icon--wrapper">
               <BsHouseDoor className="sidebar__icon" />
             </div>
             For You
           </Link>
-          <Link to="/library" className="sidebar__link">
+
+          {/* change to libary next time */}
+          <Link to="/for-you" className="sidebar__link ">
             <div className="sidebar__link--line"></div>
             <div className="sidebar__icon--wrapper">
               <BsBookmark className="sidebar__icon" />

@@ -48,6 +48,14 @@
   cursor: pointer;
 }
 
+.sidebar__link:hover {
+  background-color: #f0efef;
+}
+
+.sidebar__link--false {
+  cursor: not-allowed;
+}
+
 .sidebar__link--line {
   width: 5px;
   height: 100%;
