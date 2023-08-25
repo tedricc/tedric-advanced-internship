@@ -8,15 +8,27 @@ import {
   BsSearch,
   BsGear,
 } from "react-icons/bs";
-import { BiHelpCircle, BiLogOut } from "react-icons/bi";
+import { BiHelpCircle, BiLogOut, BiLogIn } from "react-icons/bi";
 import "./SideBar.css";
+import { getAuth, signOut } from "firebase/auth";
 
-function SideBar() {
+function SideBar({ modal, toggleModal, user }) {
+  const auth = getAuth();
+  function logout() {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  }
+
   return (
     <div className="sidebar">
-      <figure className="sidebar__logo--wrapper">
+      <Link to="/for-you" className="sidebar__logo--wrapper">
         <img src={Logo} alt="" className="sidebar__logo" />
-      </figure>
+      </Link>
       <div className="sidebar__wrapper">
         <div className="sidebar__top">
           <Link to="/for-you" className="sidebar__link">
@@ -63,13 +75,23 @@ function SideBar() {
             </div>
             Help & Support
           </div>
-          <div className="sidebar__link">
-            <div className="sidebar__link--line"></div>
-            <div className="sidebar__icon--wrapper">
-              <BiLogOut className="sidebar__icon" />
+          {user ? (
+            <div className="sidebar__link" onClick={logout}>
+              <div className="sidebar__link--line"></div>
+              <div className="sidebar__icon--wrapper">
+                <BiLogOut className="sidebar__icon" />
+              </div>
+              Logout
             </div>
-            Logout
-          </div>
+          ) : (
+            <div className="sidebar__link" onClick={toggleModal}>
+              <div className="sidebar__link--line"></div>
+              <div className="sidebar__icon--wrapper">
+                <BiLogIn className="sidebar__icon" />
+              </div>
+              Login
+            </div>
+          )}
         </div>
       </div>
     </div>

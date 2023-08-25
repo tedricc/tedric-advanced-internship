@@ -11,6 +11,7 @@ import {
 
 function LoginModal({ toggleModal }) {
   const [loginOrRegister, setLoginAndRegister] = useState("login");
+  const [error, setError] = useState("");
 
   function toggleLoginAndRegister() {
     if (loginOrRegister === "login") {
@@ -69,8 +70,6 @@ function LoginModal({ toggleModal }) {
         setError(errorMessage);
       });
   }
-
-  const [error, setError] = useState("");
 
   return (
     <div className="auth__wrapper">
