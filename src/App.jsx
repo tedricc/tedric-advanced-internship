@@ -6,6 +6,7 @@ import { initializeApp } from "firebase/app";
 import ForYou from "./pages/ForYou";
 import BookInfo from "./pages/BookInfo";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import Player from "./pages/Player";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcboQFWC77VkPAZzcyDApJhwtnYrLKLAU",
@@ -67,6 +68,12 @@ function App() {
           path="/book/:id"
           element={
             <BookInfo modal={modal} toggleModal={toggleModal} user={user} />
+          }
+        />
+        <Route
+          path="/player/:id"
+          element={
+            <Player modal={modal} toggleModal={toggleModal} user={user} />
           }
         />
       </Routes>

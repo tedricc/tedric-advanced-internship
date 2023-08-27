@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./BookInfoDetails.css";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { BsStar, BsMic, BsLightbulb, BsBookmark, BsBook } from "react-icons/bs";
 import Skeleton from "../ui/Skeleton/Skeleton";
@@ -66,19 +66,19 @@ function BookInfoDetails({ modal, toggleModal, user }) {
                 </div>
 
                 <div className="book__btn--wrapper">
-                  <button className="book__btn">
+                  <Link to={`/player/${id}`} className="book__btn">
                     <div className="book__btn--icon">
                       <BsBook />
                     </div>
                     <div className="book__btn--text">Read</div>
-                  </button>
+                  </Link>
 
-                  <button className="book__btn">
+                  <Link to={`/player/${id}`} className="book__btn">
                     <div className="book__btn--icon">
                       <BsMic />
                     </div>
                     <div className="book__btn--text">Listen</div>
-                  </button>
+                  </Link>
                 </div>
 
                 <div className="book__info--bookmark">
