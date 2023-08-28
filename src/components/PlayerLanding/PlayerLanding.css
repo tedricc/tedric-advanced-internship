@@ -135,3 +135,7 @@
   height: 12px;
   border-radius: 50%;
 }
+
+.player__landing--loading {
+  margin: 16px 24px;
+}

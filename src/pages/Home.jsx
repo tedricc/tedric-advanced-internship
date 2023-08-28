@@ -15,6 +15,10 @@ function Home({ modal, toggleModal, user }) {
     user && navigate("/for-you");
   }, [user, navigate]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <>
       {modal && <LoginModal toggleModal={toggleModal} />}

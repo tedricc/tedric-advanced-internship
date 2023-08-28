@@ -7,6 +7,7 @@ import ForYou from "./pages/ForYou";
 import BookInfo from "./pages/BookInfo";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Player from "./pages/Player";
+import ChoosePlan from "./pages/ChoosePlan";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcboQFWC77VkPAZzcyDApJhwtnYrLKLAU",
@@ -76,6 +77,7 @@ function App() {
             <Player modal={modal} toggleModal={toggleModal} user={user} />
           }
         />
+        <Route path="/choose-plan" element={<ChoosePlan />} />
       </Routes>
     </Router>
   );
