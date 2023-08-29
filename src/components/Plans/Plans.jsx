@@ -4,15 +4,10 @@ import Pricing from "../../assets/pricing-top.png";
 import { AiFillFileText } from "react-icons/ai";
 import { PiPottedPlantFill } from "react-icons/pi";
 import { FaHandshake } from "react-icons/fa";
-import { MdKeyboardArrowUp } from "react-icons/md";
+import FAQ from "../ui/FAQ/FAQ";
 
 function Plans() {
   const [yearly, setYearly] = useState(true);
-  const [faqOpen, setFaqOpen] = useState(false);
-
-  function toggleFaq() {
-    setFaqOpen(!faqOpen);
-  }
 
   return (
     <div className="plan">
@@ -121,97 +116,35 @@ function Plans() {
           </div>
 
           <div className="faq__wrapper">
-            <div className="faq__card">
-              <div className="faq__header" onClick={toggleFaq}>
-                <div className="faq__title">
-                  How does the free 7-day trial work?
-                </div>
-                <MdKeyboardArrowUp
-                  style={{
-                    transform: faqOpen ? "rotate(0deg)" : "rotate(-180deg)",
-                  }}
-                />
-              </div>
+            <FAQ
+              q={"How does the free 7-day trial work?"}
+              a={
+                "Begin your complimentary 7-day trial with a Summarist annual membership. You are under no obligation to continue your subscription, and you will only be billed when the trial period expires. With Premium access, you can learn at your own pace and as frequently as you desire, and you may terminate your subscription prior to the conclusion of the 7-day free trial."
+              }
+            />
 
-              <div className="collapse">
-                <div className="faq__text">
-                  Begin your complimentary 7-day trial with a Summarist annual
-                  membership. You are under no obligation to continue your
-                  subscription, and you will only be billed when the trial
-                  period expires. With Premium access, you can learn at your own
-                  pace and as frequently as you desire, and you may terminate
-                  your subscription prior to the conclusion of the 7-day free
-                  trial.
-                </div>
-              </div>
-            </div>
+            <FAQ
+              q={
+                "Can I switch subscriptions from monthly to yearly, or yearly to monthly?"
+              }
+              a={
+                "While an annual plan is active, it is not feasible to switch to a monthly plan. However, once the current month ends, transitioning from a monthly plan to an annual plan is an option."
+              }
+            />
 
-            <div className="faq__card">
-              <div className="faq__header" onClick={toggleFaq}>
-                <div className="faq__title">
-                  Can I switch subscriptions from monthly to yearly, or yearly
-                  to monthly?
-                </div>
-                <MdKeyboardArrowUp
-                  style={{
-                    transform: faqOpen ? "rotate(0deg)" : "rotate(-180deg)",
-                  }}
-                />
-              </div>
+            <FAQ
+              q={"What's included in the Premium plan?"}
+              a={
+                "Premium membership provides you with the ultimate Summarist experience, including unrestricted entry to many best-selling books high-quality audio, the ability to download titles for offline reading, and the option to send your reads to your Kindle."
+              }
+            />
 
-              <div className="collapse">
-                <div className="faq__text">
-                  While an annual plan is active, it is not feasible to switch
-                  to a monthly plan. However, once the current month ends,
-                  transitioning from a monthly plan to an annual plan is an
-                  option.
-                </div>
-              </div>
-            </div>
-
-            <div className="faq__card">
-              <div className="faq__header" onClick={toggleFaq}>
-                <div className="faq__title">
-                  What's included in the Premium plan?
-                </div>
-                <MdKeyboardArrowUp
-                  style={{
-                    transform: faqOpen ? "rotate(0deg)" : "rotate(-180deg)",
-                  }}
-                />
-              </div>
-
-              <div className="collapse">
-                <div className="faq__text">
-                  Premium membership provides you with the ultimate Summarist
-                  experience, including unrestricted entry to many best-selling
-                  books high-quality audio, the ability to download titles for
-                  offline reading, and the option to send your reads to your
-                  Kindle.
-                </div>
-              </div>
-            </div>
-            <div className="faq__card">
-              <div className="faq__header" onClick={toggleFaq}>
-                <div className="faq__title">
-                  Can I cancel during my trial or subscription?
-                </div>
-                <MdKeyboardArrowUp
-                  style={{
-                    transform: faqOpen ? "rotate(0deg)" : "rotate(-180deg)",
-                  }}
-                />
-              </div>
-
-              <div className="collapse">
-                <div className="faq__text">
-                  You will not be charged if you cancel your trial before its
-                  conclusion. While you will not have complete access to the
-                  entire Summarist library, you can still expand your knowledge
-                  with one curated book per day.
-                </div>
-              </div>
-            </div>
+            <FAQ
+              q={"Can I cancel during my trial or subscription?"}
+              a={
+                " You will not be charged if you cancel your trial before its conclusion. While you will not have complete access to the entire Summarist library, you can still expand your knowledge with one curated book per day."
+              }
+            />
           </div>
         </div>
       </div>

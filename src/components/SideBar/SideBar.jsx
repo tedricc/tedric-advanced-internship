@@ -70,7 +70,9 @@ function SideBar({ modal, toggleModal, user }) {
         </div>
         <div className="sidebar__bottom">
           <Link to="/settings" className="sidebar__link">
-            <div className="sidebar__link--line"></div>
+            <div className={`sidebar__link--line ${
+                location.pathname === "/settings" ? "active--tab" : ""
+              }`}></div>
             <div className="sidebar__icon--wrapper">
               <BsGear className="sidebar__icon" />
             </div>

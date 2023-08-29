@@ -8,6 +8,7 @@ import BookInfo from "./pages/BookInfo";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Player from "./pages/Player";
 import ChoosePlan from "./pages/ChoosePlan";
+import Settings from "./pages/Settings";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBcboQFWC77VkPAZzcyDApJhwtnYrLKLAU",
@@ -78,6 +79,12 @@ function App() {
           }
         />
         <Route path="/choose-plan" element={<ChoosePlan />} />
+        <Route
+          path="/settings"
+          element={
+            <Settings modal={modal} toggleModal={toggleModal} user={user} />
+          }
+        />
       </Routes>
     </Router>
   );
