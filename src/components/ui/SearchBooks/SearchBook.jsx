@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./SearchBook.css"
+// import { Link } from "react-router-dom";
+import "./SearchBook.css";
 
 function SearchBook({ book }) {
   return (
-    <Link to={`/book/${book.id}`} className="search__book--anchor">
+    // not sure why link doesnt work properly
+    <a href={`/book/${book.id}`} className="search__book--anchor">
       <figure className="search__img--wrapper">
         <img src={book.imageLink} alt="" className="search__book--img" />
       </figure>
@@ -13,7 +14,7 @@ function SearchBook({ book }) {
         <div className="search__book--author">{book.author}</div>
         {/* <div className="search__book--duration">00:00</div> */}
       </div>
-    </Link>
+    </a>
   );
 }
 

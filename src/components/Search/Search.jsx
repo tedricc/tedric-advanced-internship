@@ -15,11 +15,15 @@ function Search() {
     if (event.target.value) {
       setCompletedSearch(false);
       setSearching(true);
+      setSearchData([]);
       setTimeout(() => {
         setSearchTerm(event.target.value);
-      }, 3000);
+      }, 500);
     } else {
       setSearching(false);
+      setCompletedSearch(true);
+      setSearchTerm("");
+      setSearchData([]);
     }
   }
 
@@ -28,7 +32,6 @@ function Search() {
       const { data } = await axios.get(
         `https://us-central1-summaristt.cloudfunctions.net/getBooksByAuthorOrTitle?search=${input}`
       );
-      console.log(data);
       setSearchData(data);
       setCompletedSearch(true);
     } else {
@@ -64,15 +67,23 @@ function Search() {
         </div>
         {searching ? (
           <div className="search__books--wrapper">
-            {searchData.length === 0
-              ? new Array(4)
-                  .fill(0)
-                  .map((_, index) => (
-                    <Skeleton id={index} height="80px" width="400px" />
-                  ))
-              : searchData.map((book) => (
-                  <SearchBook key={book.id} book={book} />
+            {searchData.length === 0 &&
+              !completedSearch &&
+              new Array(4)
+                .fill(0)
+                .map((_, index) => (
+                  <Skeleton key={index} height="80px" width="400px" />
                 ))}
+
+            {searchData.length === 0 && completedSearch && (
+              <div className="search__text">No books found</div>
+            )}
+
+            {searchData.length > 0 &&
+              completedSearch &&
+              searchData.map((book) => (
+                <SearchBook key={book.id} book={book} />
+              ))}
           </div>
         ) : (
           <></>
