@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./ForYouLanding.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -6,12 +6,30 @@ import "./ForYouLanding.css";
 import Book from "../ui/Book/Book";
 import BookLoading from "../ui/BookLoading/BookLoading";
 import Skeleton from "../ui/Skeleton/Skeleton";
+import { FaPlay } from "react-icons/fa";
 
 function ForYouLanding() {
   const [selectedBook, setSelectedBook] = useState({});
   const [recommendedBooks, setRecommended] = useState([]);
   const [suggestedBooks, setSuggested] = useState([]);
   const [loading, setLoading] = useState(true);
+  const audioRef = useRef();
+  const [duration, setDuration] = useState(0);
+
+  function formatTime(time) {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes = minutes < 10 ? `${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes} mins ${formatSeconds} seconds`;
+    }
+    return "00:00";
+  }
+
+  function onLoadedMetadata() {
+    setDuration(audioRef.current.duration);
+  }
 
   async function getSelectedBook() {
     const { data } = await axios.get(
@@ -53,6 +71,11 @@ function ForYouLanding() {
 
           {!loading && Object.keys(selectedBook).length > 0 ? (
             <Link to={`/book/${selectedBook.id}`} className="selected__book">
+              <audio
+                src={selectedBook.audioLink}
+                ref={audioRef}
+                onLoadedMetadata={onLoadedMetadata}
+              />
               <div className="selected__subtitle">{selectedBook.subTitle}</div>
               <div className="selected__line"></div>
               <div className="selected__content">
@@ -66,6 +89,14 @@ function ForYouLanding() {
                 <div className="selected__text">
                   <div className="selected__title">{selectedBook.title}</div>
                   <div className="selected__author">{selectedBook.author}</div>
+                  <div className="selected__duration--wrapper">
+                    <div className="selected__duration--icon">
+                      <FaPlay />
+                    </div>
+                    <div className="selected__duration">
+                      {formatTime(duration)}
+                    </div>
+                  </div>
                 </div>
               </div>
             </Link>

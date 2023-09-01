@@ -1,15 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./BookInfoDetails.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { BsStar, BsMic, BsLightbulb, BsBookmark, BsBook } from "react-icons/bs";
 import { BiLogIn } from "react-icons/bi";
 import Skeleton from "../ui/Skeleton/Skeleton";
+import { AiOutlineClockCircle } from "react-icons/ai";
 
 function BookInfoDetails({ modal, toggleModal, user }) {
   const { id } = useParams();
   const [book, setBook] = useState({});
   const [loading, setLoading] = useState(true);
+  const audioRef = useRef();
+  const [duration, setDuration] = useState(0);
+
+  function formatTime(time) {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formatMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formatSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formatMinutes}:${formatSeconds}`;
+    }
+    return "00:00";
+  }
+
+  function onLoadedMetadata() {
+    setDuration(audioRef.current.duration);
+  }
 
   async function getBookDetails() {
     const { data } = await axios.get(
@@ -33,6 +51,11 @@ function BookInfoDetails({ modal, toggleModal, user }) {
           <div className="book__info">
             {!loading && Object.keys(book).length > 0 ? (
               <>
+                <audio
+                  src={book.audioLink}
+                  ref={audioRef}
+                  onLoadedMetadata={onLoadedMetadata}
+                />
                 <div className="book__info--title">{book.title}</div>
                 <div className="book__info--author">{book.author}</div>
                 <div className="book__info--subtitle">{book.subTitle}</div>
@@ -45,6 +68,15 @@ function BookInfoDetails({ modal, toggleModal, user }) {
                       </div>
                       <div className="book__sub--text">
                         {book.averageRating} ({book.totalRating} ratings)
+                      </div>
+                    </div>
+
+                    <div className="book__sub--info">
+                      <div className="book__sub--icon">
+                        <AiOutlineClockCircle />
+                      </div>
+                      <div className="book__sub--text">
+                        {formatTime(duration)}
                       </div>
                     </div>
 

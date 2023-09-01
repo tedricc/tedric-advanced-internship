@@ -32,11 +32,11 @@ function SettingsLanding({ modal, toggleModal, user }) {
           <>
             <div className="settings__content">
               <div className="settings__subtitle">Your Subscription plan</div>
-              <div className="settings__text">Test</div>
+              <div className="settings__text">Basic</div>
             </div>
             <div className="settings__content">
               <div className="settings__subtitle">Email</div>
-              <div className="settings__text">{email}</div>
+              <div className="settings__text">{email ? email : "Guest"}</div>
             </div>
           </>
         ) : (

@@ -54,6 +54,35 @@
   margin-bottom: 16px;
 }
 
+.selected__duration--wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected__duration--icon {
+  display: flex;
+  align-items: center;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+}
+
+.selected__duration--icon > svg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 4px 4px 6px;
+}
+
+.selected__duration {
+  font-size: 14px;
+  font-weight: 500;
+  color: #032b41;
+}
+
 .foryou__subtitle {
   font-weight: 300;
   color: #394547;

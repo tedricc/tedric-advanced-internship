@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import { FaTimes } from "react-icons/fa";
 import "./Search.css";
 import axios from "axios";
 import SearchBook from "../ui/SearchBooks/SearchBook";
@@ -10,6 +11,7 @@ function Search() {
   const [searchData, setSearchData] = useState([]);
   const [searching, setSearching] = useState(false);
   const [completedSearch, setCompletedSearch] = useState(true);
+  const inputRef = useRef();
 
   function handleSearch(event) {
     if (event.target.value) {
@@ -40,6 +42,16 @@ function Search() {
     }
   }
 
+  function clearInput() {
+    setSearching(false);
+    setCompletedSearch(true);
+    setSearchData([]);
+    setSearchTerm("");
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  }
+
   useEffect(() => {
     getData(searchTerm);
   }, [searchTerm]);
@@ -58,10 +70,21 @@ function Search() {
                 placeholder="Search for books"
                 name=""
                 id=""
+                ref={inputRef}
               />
-              <div className="search__icon">
-                <BsSearch />
-              </div>
+              {searching ? (
+                <div
+                  className="search__icon"
+                  onClick={clearInput}
+                  style={{ cursor: "pointer" }}
+                >
+                  <FaTimes />
+                </div>
+              ) : (
+                <div className="search__icon">
+                  <BsSearch />
+                </div>
+              )}
             </div>
           </div>
         </div>
