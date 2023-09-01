@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LoginImg from "../../assets/login.png";
 import "./SettingsLanding.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function SettingsLanding({ modal, toggleModal, user }) {
+  const auth = getAuth();
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/auth.user
+        const { email } = user;
+        setEmail(email);
+        // ...
+      } else {
+        // User is signed out
+        console.log("User Logged Out");
+        // ...
+      }
+    });
+  }, [auth]);
+
   return (
     <div className="container">
       <div className="row">
@@ -11,12 +31,12 @@ function SettingsLanding({ modal, toggleModal, user }) {
         {user ? (
           <>
             <div className="settings__content">
-              <div class="settings__subtitle">Your Subscription plan</div>
-              <div class="settings__text">Test</div>
+              <div className="settings__subtitle">Your Subscription plan</div>
+              <div className="settings__text">Test</div>
             </div>
-            <div class="settings__content">
-              <div class="settings__subtitle">Email</div>
-              <div class="settings__text">Test</div>
+            <div className="settings__content">
+              <div className="settings__subtitle">Email</div>
+              <div className="settings__text">{email}</div>
             </div>
           </>
         ) : (

@@ -3,6 +3,7 @@ import "./BookInfoDetails.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { BsStar, BsMic, BsLightbulb, BsBookmark, BsBook } from "react-icons/bs";
+import { BiLogIn } from "react-icons/bi";
 import Skeleton from "../ui/Skeleton/Skeleton";
 
 function BookInfoDetails({ modal, toggleModal, user }) {
@@ -66,27 +67,44 @@ function BookInfoDetails({ modal, toggleModal, user }) {
                 </div>
 
                 <div className="book__btn--wrapper">
-                  <Link to={`/player/${id}`} className="book__btn">
-                    <div className="book__btn--icon">
-                      <BsBook />
-                    </div>
-                    <div className="book__btn--text">Read</div>
-                  </Link>
+                  {user ? (
+                    <>
+                      <Link to={`/player/${id}`} className="book__btn">
+                        <div className="book__btn--icon">
+                          <BsBook />
+                        </div>
+                        <div className="book__btn--text">Read</div>
+                      </Link>
 
-                  <Link to={`/player/${id}`} className="book__btn">
-                    <div className="book__btn--icon">
-                      <BsMic />
-                    </div>
-                    <div className="book__btn--text">Listen</div>
-                  </Link>
+                      <Link to={`/player/${id}`} className="book__btn">
+                        <div className="book__btn--icon">
+                          <BsMic />
+                        </div>
+                        <div className="book__btn--text">Listen</div>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <button className="book__btn" onClick={toggleModal}>
+                        <div className="book__btn--icon">
+                          <BiLogIn />
+                        </div>
+                        <div className="book__btn--text">Login</div>
+                      </button>
+                    </>
+                  )}
                 </div>
 
-                <div className="book__info--bookmark">
-                  <div className="bookmark__icon">
-                    <BsBookmark />
+                {user && (
+                  <div className="book__info--bookmark">
+                    <div className="bookmark__icon">
+                      <BsBookmark />
+                    </div>
+                    <div className="bookmark__text">
+                      Add Title to My Library
+                    </div>
                   </div>
-                  <div className="bookmark__text">Add Title to My Library</div>
-                </div>
+                )}
 
                 <div className="book__info--about">What is it about?</div>
 

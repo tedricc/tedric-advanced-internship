@@ -5,6 +5,7 @@ import "./SearchBook.css";
 function SearchBook({ book }) {
   return (
     // not sure why link doesnt work properly
+    // <Link to={`/book/${book.id}`} className="search__book--anchor">
     <a href={`/book/${book.id}`} className="search__book--anchor">
       <figure className="search__img--wrapper">
         <img src={book.imageLink} alt="" className="search__book--img" />
@@ -15,6 +16,7 @@ function SearchBook({ book }) {
         {/* <div className="search__book--duration">00:00</div> */}
       </div>
     </a>
+    // </Link>
   );
 }
 

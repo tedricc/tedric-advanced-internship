@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import "./PlayerLanding.css";
 import { TbRewindBackward10, TbRewindForward10 } from "react-icons/tb";
@@ -15,6 +15,15 @@ function PlayerLanding() {
   const progressRef = useRef();
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const playAnimationRef = useRef();
+  const [progress, setProgress] = useState(0);
+  const progressBarStyle = {
+    background: `linear-gradient(
+      to right,
+      rgb(43, 217, 124) ${progress}%,
+      rgb(109, 120, 125) ${progress}%
+    )`,
+  };
 
   async function getBookDetails() {
     const { data } = await axios.get(
@@ -29,7 +38,8 @@ function PlayerLanding() {
     setPlaying((prev) => !prev);
   }
 
-  function progressChange() {
+  function progressChange(event) {
+    setProgress(parseFloat(event.target.value));
     audioRef.current.currentTime =
       audioRef.current.duration * (progressRef.current.value / 100);
   }
@@ -48,6 +58,24 @@ function PlayerLanding() {
   function onLoadedMetadata() {
     setDuration(audioRef.current.duration);
     setTime(audioRef.current.currentTime);
+    setProgress(
+      (audioRef.current.currentTime / audioRef.current.duration) * 100
+    );
+  }
+
+  const repeat = useCallback(() => {
+    const currentTime = audioRef?.current?.currentTime || 0;
+    setTime(currentTime);
+    setProgress((currentTime / audioRef?.current?.duration) * 100 || 0);
+    playAnimationRef.current = requestAnimationFrame(repeat);
+  }, [audioRef, setTime]);
+
+  function forward10() {
+    audioRef.current.currentTime += 10;
+  }
+
+  function backward10() {
+    audioRef.current.currentTime -= 10;
   }
 
   useEffect(() => {
@@ -64,7 +92,8 @@ function PlayerLanding() {
     } else {
       audioRef?.current?.pause();
     }
-  }, [playing, audioRef]);
+    playAnimationRef.current = requestAnimationFrame(repeat);
+  }, [playing, audioRef, repeat]);
 
   return (
     <>
@@ -93,7 +122,7 @@ function PlayerLanding() {
 
             <div className="audio__controls--wrapper">
               <div className="audio__controls">
-                <button className="audio__controls--btn">
+                <button className="audio__controls--btn" onClick={backward10}>
                   <TbRewindBackward10 />
                 </button>
                 <button
@@ -102,7 +131,7 @@ function PlayerLanding() {
                 >
                   {playing ? <FaPause /> : <FaPlay />}
                 </button>
-                <button className="audio__controls--btn">
+                <button className="audio__controls--btn" onClick={forward10}>
                   <TbRewindForward10 />
                 </button>
               </div>
@@ -114,8 +143,9 @@ function PlayerLanding() {
                 type="range"
                 className="audio__progress--bar"
                 ref={progressRef}
-                defaultValue="0"
+                value={progress}
                 onChange={progressChange}
+                style={progressBarStyle}
               />
               <div className="audio__time">{formatTime(duration)}</div>
             </div>
