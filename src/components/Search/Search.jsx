@@ -7,7 +7,7 @@ import axios from "axios";
 import SearchBook from "../ui/SearchBooks/SearchBook";
 import Skeleton from "../ui/Skeleton/Skeleton";
 
-function Search() {
+function Search({ toggleSidebar }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchData, setSearchData] = useState([]);
   const [searching, setSearching] = useState(false);
@@ -89,7 +89,7 @@ function Search() {
             </div>
           </div>
 
-          <div className="sidebar__toggle--btn">
+          <div className="sidebar__toggle--btn" onClick={toggleSidebar}>
             <AiOutlineMenu />
           </div>
         </div>

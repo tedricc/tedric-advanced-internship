@@ -4,7 +4,14 @@ import Search from "../components/Search/Search";
 import SettingsLanding from "../components/SettingsLanding/SettingsLanding";
 import LoginModal from "../components/LoginModal/LoginModal";
 
-function Settings({ modal, toggleModal, user, isPremium }) {
+function Settings({
+  modal,
+  toggleModal,
+  user,
+  isPremium,
+  toggleSidebar,
+  sidebar,
+}) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -14,8 +21,14 @@ function Settings({ modal, toggleModal, user, isPremium }) {
       {modal && <LoginModal toggleModal={toggleModal} />}
 
       <div className="wrapper">
-        <SideBar modal={modal} toggleModal={toggleModal} user={user} />
-        <Search />
+        <SideBar
+          modal={modal}
+          toggleModal={toggleModal}
+          user={user}
+          sidebar={sidebar}
+          toggleSidebar={toggleSidebar}
+        />
+        <Search toggleSidebar={toggleSidebar} />
         <SettingsLanding
           modal={modal}
           toggleModal={toggleModal}

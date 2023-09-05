@@ -13,6 +13,8 @@ import {
 } from "firebase/auth";
 
 function LoginModal({ toggleModal }) {
+  const auth = getAuth();
+
   const [loginOrRegister, setLoginAndRegister] = useState("login");
   const [error, setError] = useState("");
   const provider = new GoogleAuthProvider();
@@ -26,8 +28,6 @@ function LoginModal({ toggleModal }) {
       setError("");
     }
   }
-
-  const auth = getAuth();
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);

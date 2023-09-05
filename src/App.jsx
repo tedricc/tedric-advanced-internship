@@ -13,10 +13,12 @@ import getPremiumStatus from "./stripe/getPremiumStatus";
 
 function App() {
   const firebase = app;
+  const auth = getAuth();
 
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
 
   function toggleModal() {
     if (!modal) {
@@ -26,7 +28,13 @@ function App() {
     }
   }
 
-  const auth = getAuth();
+  function toggleSidebar() {
+    if (!sidebar) {
+      setSidebar(true);
+    } else {
+      setSidebar(false);
+    }
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -66,7 +74,13 @@ function App() {
         <Route
           path="/for-you"
           element={
-            <ForYou modal={modal} toggleModal={toggleModal} user={user} />
+            <ForYou
+              modal={modal}
+              toggleModal={toggleModal}
+              user={user}
+              toggleSidebar={toggleSidebar}
+              sidebar={sidebar}
+            />
           }
         />
         <Route
@@ -77,16 +91,29 @@ function App() {
               toggleModal={toggleModal}
               user={user}
               isPremium={isPremium}
+              toggleSidebar={toggleSidebar}
+              sidebar={sidebar}
             />
           }
         />
+        {user && (
+          <Route
+            path="/player/:id"
+            element={
+              <Player
+                modal={modal}
+                toggleModal={toggleModal}
+                user={user}
+                toggleSidebar={toggleSidebar}
+                sidebar={sidebar}
+              />
+            }
+          />
+        )}
         <Route
-          path="/player/:id"
-          element={
-            <Player modal={modal} toggleModal={toggleModal} user={user} />
-          }
+          path="/choose-plan"
+          element={<ChoosePlan isPremium={isPremium} />}
         />
-        <Route path="/choose-plan" element={<ChoosePlan />} />
         <Route
           path="/settings"
           element={
@@ -95,6 +122,8 @@ function App() {
               toggleModal={toggleModal}
               user={user}
               isPremium={isPremium}
+              toggleSidebar={toggleSidebar}
+              sidebar={sidebar}
             />
           }
         />

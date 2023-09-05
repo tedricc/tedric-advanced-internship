@@ -4,7 +4,14 @@ import Search from "../components/Search/Search";
 import BookInfoDetails from "../components/BookInfoDetails/BookInfoDetails";
 import LoginModal from "../components/LoginModal/LoginModal";
 
-function BookInfo({ modal, toggleModal, user, isPremium }) {
+function BookInfo({
+  modal,
+  toggleModal,
+  user,
+  isPremium,
+  toggleSidebar,
+  sidebar,
+}) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -14,8 +21,14 @@ function BookInfo({ modal, toggleModal, user, isPremium }) {
       {modal && <LoginModal toggleModal={toggleModal} />}
 
       <div className="wrapper">
-        <SideBar modal={modal} toggleModal={toggleModal} user={user} />
-        <Search />
+        <SideBar
+          modal={modal}
+          toggleModal={toggleModal}
+          user={user}
+          sidebar={sidebar}
+          toggleSidebar={toggleSidebar}
+        />
+        <Search toggleSidebar={toggleSidebar} />
         <BookInfoDetails
           modal={modal}
           toggleModal={toggleModal}

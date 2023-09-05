@@ -31,7 +31,6 @@ function PlayerLanding() {
     );
 
     setBook(data);
-    console.log(data);
   }
 
   function togglePlaying() {
@@ -82,7 +81,6 @@ function PlayerLanding() {
     window.scrollTo(0, 0);
     getBookDetails();
     setLoading(false);
-    console.log(audioRef);
     // eslint-disable-next-line
   }, []);
 

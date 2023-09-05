@@ -4,7 +4,7 @@ import Search from "../components/Search/Search";
 import ForYouLanding from "../components/ForYouLanding/ForYouLanding";
 import LoginModal from "../components/LoginModal/LoginModal";
 
-function ForYou({ modal, toggleModal, user }) {
+function ForYou({ modal, toggleModal, user, toggleSidebar, sidebar }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -14,8 +14,14 @@ function ForYou({ modal, toggleModal, user }) {
       {modal && <LoginModal toggleModal={toggleModal} />}
 
       <div className="wrapper">
-        <SideBar modal={modal} toggleModal={toggleModal} user={user} />
-        <Search />
+        <SideBar
+          modal={modal}
+          toggleModal={toggleModal}
+          user={user}
+          sidebar={sidebar}
+          toggleSidebar={toggleSidebar}
+        />
+        <Search toggleSidebar={toggleSidebar} />
         <ForYouLanding />
       </div>
     </>

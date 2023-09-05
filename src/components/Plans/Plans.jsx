@@ -5,7 +5,6 @@ import { AiFillFileText } from "react-icons/ai";
 import { PiPottedPlantFill } from "react-icons/pi";
 import { FaHandshake } from "react-icons/fa";
 import FAQ from "../ui/FAQ/FAQ";
-// import { getAuth } from "firebase/auth";
 import { getCheckoutUrl } from "../../stripe/stripe";
 import app from "../../firebase/firebase";
 import SkeletonSpin from "../ui/SkeletonSpin/SkeletonSpin";
@@ -14,27 +13,7 @@ function Plans() {
   const firebase = app;
 
   const [yearly, setYearly] = useState(true);
-  // const auth = getAuth();
-  // const [uid, setUid] = useState(null);
   const [loadingPayment, setLoadingPayment] = useState(false);
-
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       // User is signed in, see docs for a list of available properties
-  //       // https://firebase.google.com/docs/reference/js/auth.user
-  //       const { uid } = user;
-  //       console.log(uid);
-  //       setUid(uid);
-  //       // ...
-  //     } else {
-  //       // User is signed out
-  //       setUid(null);
-  //       console.log("User Logged Out");
-  //       // ...
-  //     }
-  //   });
-  // }, [auth]);
 
   async function uprgradePremium() {
     const priceId = "price_1NmqKjGvqO2g3ZqUhDcQTHtj";

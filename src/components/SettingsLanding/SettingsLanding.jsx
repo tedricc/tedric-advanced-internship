@@ -8,8 +8,8 @@ import SkeletonSpin from "../ui/SkeletonSpin/SkeletonSpin";
 
 function SettingsLanding({ toggleModal, user, isPremium }) {
   const firebase = app;
-
   const auth = getAuth();
+
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
