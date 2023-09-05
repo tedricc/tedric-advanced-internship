@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { FaTimes } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
 import "./Search.css";
 import axios from "axios";
 import SearchBook from "../ui/SearchBooks/SearchBook";
@@ -87,6 +88,10 @@ function Search() {
               )}
             </div>
           </div>
+
+          <div className="sidebar__toggle--btn">
+            <AiOutlineMenu />
+          </div>
         </div>
         {searching ? (
           <div className="search__books--wrapper">
@@ -95,7 +100,7 @@ function Search() {
               new Array(4)
                 .fill(0)
                 .map((_, index) => (
-                  <Skeleton key={index} height="80px" width="400px" />
+                  <Skeleton key={index} height="80px" width="100%" />
                 ))}
 
             {searchData.length === 0 && completedSearch && (

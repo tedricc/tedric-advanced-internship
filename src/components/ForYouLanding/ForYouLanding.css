@@ -97,3 +97,25 @@
   scroll-snap-type: x;
   margin-bottom: 32px;
 }
+
+@media (max-width: 1080px) {
+  .selected__book {
+    width: 100%;
+  }
+
+  .selected__content {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .selected__book {
+    width: 100%;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .selected__subtitle {
+    width: 100%;
+  }
+}

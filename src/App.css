@@ -550,3 +550,10 @@ button:disabled {
   width: calc(100% - 200px);
   transition: all 0.3s;
 }
+
+@media (max-width: 1080px) {
+  .wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+}

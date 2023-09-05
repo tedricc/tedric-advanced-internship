@@ -82,3 +82,26 @@
   border: 1px solid #e1e7ea;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.14);
 }
+
+.sidebar__toggle--btn {
+  display: none;
+}
+
+.sidebar__toggle--btn > svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 1080px) {
+  .sidebar__toggle--btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .search__books--wrapper {
+    max-width: unset;
+    right: 0;
+  }
+}

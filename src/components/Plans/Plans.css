@@ -174,3 +174,23 @@
   color: #6b757b;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .plan__header--wrapper::before {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .plan__features--wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .plan__title {
+    font-size: 24px;
+    margin-bottom: 32px;
+  }
+
+  .plan__subtitle {
+    font-size: 16px;
+  }
+}

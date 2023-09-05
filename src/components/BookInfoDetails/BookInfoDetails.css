@@ -156,3 +156,10 @@
   width: 300px;
   min-width: 300px;
 }
+
+@media (max-width: 1080px) {
+  .book__info--wrapper {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+}

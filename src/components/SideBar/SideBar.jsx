@@ -46,13 +46,13 @@ function SideBar({ toggleModal, user }) {
           </Link>
 
           {/* change to libary next time */}
-          <Link to="/for-you" className="sidebar__link ">
+          <div className="sidebar__link sidebar__link--false">
             <div className="sidebar__link--line"></div>
             <div className="sidebar__icon--wrapper">
               <BsBookmark className="sidebar__icon" />
             </div>
             My Library
-          </Link>
+          </div>
           <div className="sidebar__link sidebar__link--false">
             <div className="sidebar__link--line"></div>
             <div className="sidebar__icon--wrapper">
@@ -70,9 +70,11 @@ function SideBar({ toggleModal, user }) {
         </div>
         <div className="sidebar__bottom">
           <Link to="/settings" className="sidebar__link">
-            <div className={`sidebar__link--line ${
+            <div
+              className={`sidebar__link--line ${
                 location.pathname === "/settings" ? "active--tab" : ""
-              }`}></div>
+              }`}
+            ></div>
             <div className="sidebar__icon--wrapper">
               <BsGear className="sidebar__icon" />
             </div>
