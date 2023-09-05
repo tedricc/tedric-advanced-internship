@@ -8,11 +8,14 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInAnonymously,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 
 function LoginModal({ toggleModal }) {
   const [loginOrRegister, setLoginAndRegister] = useState("login");
   const [error, setError] = useState("");
+  const provider = new GoogleAuthProvider();
 
   function toggleLoginAndRegister() {
     if (loginOrRegister === "login") {
@@ -85,6 +88,32 @@ function LoginModal({ toggleModal }) {
       });
   }
 
+  function googleLogin() {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        // const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        console.log(user);
+        toggleModal();
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        // const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        // const email = error.customData.email;
+        // The AuthCredential type that was used.
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
+        setError(errorMessage);
+      });
+  }
+
   return (
     <div className="auth__wrapper">
       <div className="auth">
@@ -108,7 +137,7 @@ function LoginModal({ toggleModal }) {
               </div>
             </>
           )}
-          <button className="btn google__btn--wrapper">
+          <button className="btn google__btn--wrapper" onClick={googleLogin}>
             <figure className="google__icon--mask">
               <FcGoogle />
             </figure>

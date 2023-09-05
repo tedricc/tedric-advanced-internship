@@ -8,7 +8,7 @@ function Settings({ modal, toggleModal, user }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   return (
     <>
       {modal && <LoginModal toggleModal={toggleModal} />}
