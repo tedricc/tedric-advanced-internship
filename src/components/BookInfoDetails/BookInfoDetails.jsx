@@ -7,12 +7,13 @@ import { BiLogIn } from "react-icons/bi";
 import Skeleton from "../ui/Skeleton/Skeleton";
 import { AiOutlineClockCircle } from "react-icons/ai";
 
-function BookInfoDetails({ modal, toggleModal, user }) {
+function BookInfoDetails({ toggleModal, user, isPremium }) {
   const { id } = useParams();
   const [book, setBook] = useState({});
   const [loading, setLoading] = useState(true);
   const audioRef = useRef();
   const [duration, setDuration] = useState(0);
+  const [freeBook, setFreeBook] = useState(false);
 
   function formatTime(time) {
     if (time && !isNaN(time)) {
@@ -43,6 +44,14 @@ function BookInfoDetails({ modal, toggleModal, user }) {
     setLoading(false);
     // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (book.subscriptionRequired) {
+      setFreeBook(false);
+    } else {
+      setFreeBook(true);
+    }
+  }, [book]);
 
   return (
     <div className="row">
@@ -101,14 +110,28 @@ function BookInfoDetails({ modal, toggleModal, user }) {
                 <div className="book__btn--wrapper">
                   {user ? (
                     <>
-                      <Link to={`/player/${id}`} className="book__btn">
+                      <Link
+                        to={
+                          freeBook || isPremium
+                            ? `/player/${id}`
+                            : "/choose-plan"
+                        }
+                        className="book__btn"
+                      >
                         <div className="book__btn--icon">
                           <BsBook />
                         </div>
                         <div className="book__btn--text">Read</div>
                       </Link>
 
-                      <Link to={`/player/${id}`} className="book__btn">
+                      <Link
+                        to={
+                          freeBook || isPremium
+                            ? `/player/${id}`
+                            : "/choose-plan"
+                        }
+                        className="book__btn"
+                      >
                         <div className="book__btn--icon">
                           <BsMic />
                         </div>

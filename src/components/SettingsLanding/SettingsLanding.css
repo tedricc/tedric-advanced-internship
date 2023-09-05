@@ -53,3 +53,8 @@
 .settings__text {
   color: #032b41;
 }
+
+.settings__manage {
+  width: 100%;
+  max-width: 300px;
+}

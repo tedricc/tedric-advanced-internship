@@ -2,28 +2,21 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { useEffect, useState } from "react";
-import { initializeApp } from "firebase/app";
 import ForYou from "./pages/ForYou";
 import BookInfo from "./pages/BookInfo";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Player from "./pages/Player";
 import ChoosePlan from "./pages/ChoosePlan";
 import Settings from "./pages/Settings";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBcboQFWC77VkPAZzcyDApJhwtnYrLKLAU",
-  authDomain: "tedric-advanced-internship.firebaseapp.com",
-  projectId: "tedric-advanced-internship",
-  storageBucket: "tedric-advanced-internship.appspot.com",
-  messagingSenderId: "588751824281",
-  appId: "1:588751824281:web:996bc2510d895eccab5f08",
-};
-
-initializeApp(firebaseConfig);
+import app from "./firebase/firebase";
+import getPremiumStatus from "./stripe/getPremiumStatus";
 
 function App() {
+  const firebase = app;
+
   const [modal, setModal] = useState(false);
   const [user, setUser] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
 
   function toggleModal() {
     if (!modal) {
@@ -53,6 +46,16 @@ function App() {
     });
   }, [auth]);
 
+  useEffect(() => {
+    const checkPremium = async () => {
+      const newPremiumStatus = auth.currentUser
+        ? await getPremiumStatus(firebase)
+        : false;
+      setIsPremium(newPremiumStatus);
+    };
+    checkPremium();
+  }, [firebase, auth.currentUser?.uid, auth.currentUser]);
+
   return (
     <Router>
       <Routes>
@@ -69,7 +72,12 @@ function App() {
         <Route
           path="/book/:id"
           element={
-            <BookInfo modal={modal} toggleModal={toggleModal} user={user} />
+            <BookInfo
+              modal={modal}
+              toggleModal={toggleModal}
+              user={user}
+              isPremium={isPremium}
+            />
           }
         />
         <Route
@@ -82,7 +90,12 @@ function App() {
         <Route
           path="/settings"
           element={
-            <Settings modal={modal} toggleModal={toggleModal} user={user} />
+            <Settings
+              modal={modal}
+              toggleModal={toggleModal}
+              user={user}
+              isPremium={isPremium}
+            />
           }
         />
       </Routes>

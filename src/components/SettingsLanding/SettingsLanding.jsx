@@ -2,10 +2,24 @@ import React, { useEffect, useState } from "react";
 import LoginImg from "../../assets/login.png";
 import "./SettingsLanding.css";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getPortalUrl } from "../../stripe/stripe";
+import app from "../../firebase/firebase";
+import SkeletonSpin from "../ui/SkeletonSpin/SkeletonSpin";
 
-function SettingsLanding({ modal, toggleModal, user }) {
+function SettingsLanding({ toggleModal, user, isPremium }) {
+  const firebase = app;
+
   const auth = getAuth();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function manageSubscription() {
+    window.scrollTo(0, 0);
+    setLoading(true);
+    const portalUrl = await getPortalUrl(firebase);
+    setLoading(false);
+    window.location.href = `${portalUrl}`;
+  }
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -30,14 +44,34 @@ function SettingsLanding({ modal, toggleModal, user }) {
 
         {user ? (
           <>
-            <div className="settings__content">
-              <div className="settings__subtitle">Your Subscription plan</div>
-              <div className="settings__text">Basic</div>
-            </div>
-            <div className="settings__content">
-              <div className="settings__subtitle">Email</div>
-              <div className="settings__text">{email ? email : "Guest"}</div>
-            </div>
+            {loading ? (
+              <SkeletonSpin />
+            ) : (
+              <>
+                <div className="settings__content">
+                  <div className="settings__subtitle">
+                    Your Subscription plan
+                  </div>
+                  <div className="settings__text">
+                    {isPremium ? "Premium" : "Basic"}
+                  </div>
+                </div>
+                <div className="settings__content">
+                  <div className="settings__subtitle">Email</div>
+                  <div className="settings__text">
+                    {email ? email : "Guest"}
+                  </div>
+                </div>
+                <div className="settings__content">
+                  <button
+                    className="settings__manage btn"
+                    onClick={manageSubscription}
+                  >
+                    Manage Subscription
+                  </button>
+                </div>
+              </>
+            )}
           </>
         ) : (
           <div className="settings__login--wrapper">

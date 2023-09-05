@@ -12,7 +12,7 @@ import { BiHelpCircle, BiLogOut, BiLogIn } from "react-icons/bi";
 import "./SideBar.css";
 import { getAuth, signOut } from "firebase/auth";
 
-function SideBar({ modal, toggleModal, user }) {
+function SideBar({ toggleModal, user }) {
   const location = useLocation();
 
   const auth = getAuth();
